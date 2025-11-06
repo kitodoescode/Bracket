@@ -2519,6 +2519,7 @@ Bracket.Elements = {
 			Watermark.Enabled = Bracket.Utilities:GetType(Watermark.Enabled, "boolean", false)
 			Watermark.Title = Bracket.Utilities:GetType(Watermark.Title, "string", "Hello World!")
 			Watermark.Flag = Bracket.Utilities:GetType(Watermark.Flag, "string", "UI/Watermark/Position")
+			Watermark.Fixed = Bracket.Utilities:GetType(Watermark.Fixed, "boolean", false)
 
 			Watermark.Type = "Watermark"
 			Watermark.Asset = Bracket.Screen.Watermark
@@ -2533,13 +2534,16 @@ Bracket.Elements = {
 
 			Bracket.Utilities.MakeDraggable(Bracket.Screen.Watermark, Bracket.Screen.Watermark, function(Position)
 				if not Window.Enabled then return end
-				Bracket.Screen.Watermark.Position = Position
+				local new
+				if not Watermark.Fixed then Bracket.Screen.Watermark.Position = Position end
 			end, function(Position)
 				if not Window.Enabled then return end
+				if not Watermark.Fixed then
 				Watermark.Value = {
 					Position.X.Scale, Position.X.Offset,
 					Position.Y.Scale, Position.Y.Offset
 				}
+				end
 			end)
 
 			Watermark:GetPropertyChangedSignal("Enabled"):Connect(function(Enabled)

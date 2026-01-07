@@ -2276,14 +2276,20 @@ Bracket.Instances = {
 		Close.BackgroundTransparency = 1
 		Close.Position = UDim2.new(1, 0, 0, 0)
 		Close.BorderSizePixel = 0
-		Close.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+		Close.BackgroundColor3 = Color3.fromRGB(63, 63, 63)
 		Close.AutoButtonColor = false
 		Close.TextStrokeTransparency = 0.75
 		Close.TextSize = 14
 		Close.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Close.Text = "X"
-		Close.FontFace = Font.fromEnum(Enum.Font.Nunito)
+		Close.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Close.Parent = TitleHolder
+
+		local Gradient = Instance.new("UIGradient")
+		Gradient.Name = "Gradient"
+		Gradient.Rotation = 90
+		Gradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(191, 191, 191))
+		Gradient.Parent = Close
 
 		local Divider = Instance.new("Frame")
 		Divider.Name = "Divider"
@@ -4542,11 +4548,8 @@ function Bracket.PushNotification(Self, Notification)
 	Notification.Title = Self.Utilities:GetType(Notification.Title, "string", "Title")
 	Notification.Description = Self.Utilities:GetType(Notification.Description, "string", "Description")
 	local Duration = Notification.Duration
-	if Duration == false then
-		Notification.Duration = nil
-	else
-		Notification.Duration = Self.Utilities:GetType(Notification.Duration, "number", 5)
-	end
+	if Duration == false then Notification.Duration = nil
+	else Notification.Duration = Self.Utilities:GetType(Notification.Duration, "number", 5) end
 
 	local NotificationInstance = Self.Instances.PushNotification()
 	NotificationInstance.Parent = Self.Screen.PNContainer
@@ -4557,8 +4560,8 @@ function Bracket.PushNotification(Self, Notification)
 
 	NotificationInstance.Size = UDim2.fromOffset(
 		(NotificationInstance.TitleHolder.Title.TextBounds.X > NotificationInstance.Description.TextBounds.X
-			and NotificationInstance.TitleHolder.Title.TextBounds.X or NotificationInstance.Description.TextBounds.X) + 24,
-		NotificationInstance.ListLayout.AbsoluteContentSize.Y + 8
+			and NotificationInstance.TitleHolder.Title.TextBounds.X or NotificationInstance.Description.TextBounds.X) + 30,
+		NotificationInstance.ListLayout.AbsoluteContentSize.Y + 12
 	)
 
 	local Closed = false

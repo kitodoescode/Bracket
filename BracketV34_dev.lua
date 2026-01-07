@@ -2270,7 +2270,7 @@ Bracket.Instances = {
 
 		local Close = Instance.new("TextButton")
 		Close.Name = "Close"
-		Close.AnchorPoint = Vector2.new(1, 0)
+		Close.AnchorPoint = Vector2.new(0, 0)
 		Close.Size = UDim2.new(0, 14, 0, 14)
 		Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Close.BackgroundTransparency = 1
@@ -2302,6 +2302,9 @@ Bracket.Instances = {
 
 		local Label = Instance.new("TextLabel")
 		Label.Size = UDim2.fromScale(1, 1)
+		Label.TextScaled = true
+		Label.TextXAlignment = Enum.TextXAlignment.Center
+		Label.TextYAlignment = Enum.TextYAlignment.Center
 		Label.BackgroundTransparency = 1
 		Label.Text = "X"
 		Label.TextColor3 = Color3.fromRGB(255, 255, 255)

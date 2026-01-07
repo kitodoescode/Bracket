@@ -2301,7 +2301,7 @@ Bracket.Instances = {
 		Gradient.Parent = Background
 
 		local Label = Instance.new("TextLabel")
-		Label.Size = UDim2.fromScale(0.8, 0.8)
+		Label.Size = UDim2.fromScale(1, 1)
 		Label.BackgroundTransparency = 1
 		Label.Text = "X"
 		Label.TextColor3 = Color3.fromRGB(255, 255, 255)

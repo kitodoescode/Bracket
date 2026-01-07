@@ -4561,6 +4561,10 @@ function Bracket.PushNotification(Self, Notification)
 		NotificationInstance.ListLayout.AbsoluteContentSize.Y + 8
 	)
 
+	NotificationInstance.TitleHolder.Close.MouseButton1Click:Connect(function()
+		NotificationInstance:Destroy()
+	end)
+
 	if Notification.Duration then
 		task.spawn(function()
 			task.wait(Notification.Duration)
@@ -4568,10 +4572,6 @@ function Bracket.PushNotification(Self, Notification)
 			if Notification.Callback then
 				Notification.Callback()
 			end
-		end)
-	else
-		NotificationInstance.TitleHolder.Close.MouseButton1Click:Connect(function()
-			NotificationInstance:Destroy()
 		end)
 	end
 end

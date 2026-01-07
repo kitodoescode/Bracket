@@ -5,6 +5,7 @@ local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local PlayerService = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local TweenService = game:GetService("TweenService")
 
 local GuiInset = GuiService:GetGuiInset()
 local LocalPlayer = PlayerService.LocalPlayer
@@ -2344,12 +2345,35 @@ Bracket.Instances = {
 		Description.TextXAlignment = Enum.TextXAlignment.Left
 		Description.Parent = Push
 
+		local TimerBarContainer = Instance.new("Frame")
+		TimerBarContainer.Name = "TimerBarContainer"
+		TimerBarContainer.LayoutOrder = 4
+		TimerBarContainer.Size = UDim2.new(1, 0, 0, 2)
+		TimerBarContainer.BorderSizePixel = 0
+		TimerBarContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+		TimerBarContainer.Parent = Push
+
+		local TimerBar = Instance.new("Frame")
+		TimerBar.Name = "TimerBar"
+		TimerBar.Size = UDim2.new(1, 0, 1, 0)
+		TimerBar.BorderSizePixel = 0
+		TimerBar.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
+		TimerBar.Parent = TimerBarContainer
+
+		local TimerGradient = Instance.new("UIGradient")
+		TimerGradient.Name = "TimerGradient"
+		TimerGradient.Color = ColorSequence.new(
+			Color3.fromRGB(100, 200, 255),
+			Color3.fromRGB(50, 150, 255)
+		)
+		TimerGradient.Parent = TimerBar
+
 		return Push
 	end,
 	ToastNotification = function()
 		local Toast = Instance.new("Frame")
 		Toast.Name = "Toast"
-		Toast.Size = UDim2.new(0, 259, 0, 24)
+		Toast.Size = UDim2.new(0, 200, 0, 40)
 		Toast.ClipsDescendants = true
 		Toast.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Toast.BackgroundTransparency = 1
@@ -2411,6 +2435,33 @@ Bracket.Instances = {
 		Title.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Title.TextXAlignment = Enum.TextXAlignment.Left
 		Title.Parent = Main
+
+		local TimerBarContainer = Instance.new("Frame")
+		TimerBarContainer.Name = "TimerBarContainer"
+		TimerBarContainer.LayoutOrder = 4
+		TimerBarContainer.AnchorPoint = Vector2.new(0.5, 1)
+		TimerBarContainer.Size = UDim2.new(1, 0, 0, 2)
+		TimerBarContainer.Position = UDim2.new(0.5, 0, 1, 0)
+		TimerBarContainer.BorderSizePixel = 0
+		TimerBarContainer.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+		TimerBarContainer.Parent = Main
+
+		local TimerBar = Instance.new("Frame")
+		TimerBar.Name = "TimerBar"
+		TimerBar.AnchorPoint = Vector2.new(1, 0)
+		TimerBar.Position = UDim2.new(1, 0, 0, 0)
+		TimerBar.Size = UDim2.new(1, 0, 1, 0)
+		TimerBar.BorderSizePixel = 0
+		TimerBar.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
+		TimerBar.Parent = TimerBarContainer
+
+		local TimerGradient = Instance.new("UIGradient")
+		TimerGradient.Name = "TimerGradient"
+		TimerGradient.Color = ColorSequence.new(
+			Color3.fromRGB(100, 200, 255),
+			Color3.fromRGB(50, 150, 255)
+		)
+		TimerGradient.Parent = TimerBar
 
 		return Toast
 	end
@@ -4602,8 +4653,21 @@ function Bracket.PushNotification(Self, Notification)
 	NotificationInstance.TitleHolder.Close.MouseButton1Click:Connect(Close)
 
 	if Notification.Duration and typeof(Notification.Duration) == "number" then
-		task.spawn(function()
-			task.wait(Notification.Duration)
+		local tweenInfo = TweenInfo.new(
+			Notification.Duration,
+			Enum.EasingStyle.Linear,
+			Enum.EasingDirection.InOut
+		)
+	
+		TimerTween = TweenService:Create(
+			NotificationInstance.TimerBarContainer.TimerBar,
+			tweenInfo,
+			{Size = UDim2.new(0, 0, 1, 0)}
+		)
+	
+		TimerTween:Play()
+	
+		TimerTween.Completed:Connect(function()
 			Close()
 		end)
 	end
@@ -4628,6 +4692,8 @@ function Bracket.ToastNotification(Self, Notification)
 		NotificationInstance.Main.Size.Y.Offset + 4
 	)
 
+	local TimerTween = nil
+
 	local function TweenSize(X, Y, Callback)
 		NotificationInstance:TweenSize(
 			UDim2.fromOffset(X, Y),
@@ -4638,8 +4704,33 @@ function Bracket.ToastNotification(Self, Notification)
 	end
 
 	TweenSize(NotificationInstance.Main.Size.X.Offset + 4, NotificationInstance.Main.Size.Y.Offset + 4, function()
-		task.wait(Notification.Duration) TweenSize(0, NotificationInstance.Main.Size.Y.Offset + 4, function()
-			NotificationInstance:Destroy() if Notification.Callback then Notification.Callback() end
+		if NotificationInstance.Main.TimerBarContainer.TimerBar then
+			local tweenInfo = TweenInfo.new(
+				Notification.Duration,
+				Enum.EasingStyle.Linear,
+				Enum.EasingDirection.InOut
+			)
+			
+			TimerTween = TweenService:Create(
+				NotificationInstance.Main.TimerBarContainer.TimerBar,
+				tweenInfo,
+				{Size = UDim2.new(0, 0, 1, 0)}
+			)
+			
+			TimerTween:Play()
+		end
+		
+		task.wait(Notification.Duration)
+		
+		if TimerTween then
+			TimerTween:Cancel()
+		end
+		
+		TweenSize(0, NotificationInstance.Main.Size.Y.Offset + 4, function()
+			NotificationInstance:Destroy()
+			if Notification.Callback then
+				Notification.Callback()
+			end
 		end)
 	end)
 end

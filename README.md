@@ -1,5 +1,5 @@
 # Bracket Revival | [**Wiki**](https://github.com/kitodoescode/Bracket/wiki)
-- Hi, I am attempting to revive this old roblox user-interface library since its original owner had abandoned it a long time ago.
+- Hi, I am attempting to revive this old roblox user-interface library since its original owner had abandoned it a long time ago and I would hate to see such a good user-interface library be forgotten.
 - Please feel free to star the repository and make pull requests for any issues that you may find!
 - I will try my best to continue this library with complete documentation for each version and completing the v3.4 source aswell as future updates, adding more features and possibly a v4.
 # Preview

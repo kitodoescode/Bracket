@@ -2281,23 +2281,34 @@ Bracket.Instances = {
 		Close.TextStrokeTransparency = 0.75
 		Close.TextSize = 14
 		Close.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Close.Text = "X"
+		Close.Text = ""
 		Close.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Close.Parent = TitleHolder
 
-		local Frame = Instance.new("Frame")
-		Frame.Name = "Frame"
-		Frame.Size = UDim2.new(0, 10, 0, 10)
-		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Frame.Position = UDim2.new(0, 0, 0, 2)
-		Frame.BackgroundColor3 = Color3.fromRGB(63, 63, 63)
-		Frame.Parent = Close
+		local Background = Instance.new("Frame")
+		Background.Name = "Background"
+		Background.Size = UDim2.fromScale(1, 1)
+		Background.Position = UDim2.fromScale(0, 0)
+		Background.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Background.BackgroundColor3 = Color3.fromRGB(63, 63, 63)
+		Background.ZIndex = 1
+		Background.Parent = Close
 
 		local Gradient = Instance.new("UIGradient")
 		Gradient.Name = "Gradient"
 		Gradient.Rotation = 90
 		Gradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(191, 191, 191))
 		Gradient.Parent = Frame
+
+		local Label = Instance.new("TextLabel")
+		Label.Size = UDim2.fromScale(1, 1)
+		Label.BackgroundTransparency = 1
+		Label.Text = "X"
+		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+		Label.TextSize = 14
+		Label.FontFace = Font.fromEnum(Enum.Font.SourceSans)
+		Label.ZIndex = 2
+		Label.Parent = Close
 
 		local Divider = Instance.new("Frame")
 		Divider.Name = "Divider"

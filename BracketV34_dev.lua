@@ -2300,16 +2300,18 @@ Bracket.Instances = {
 		Gradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(191, 191, 191))
 		Gradient.Parent = Background
 
+		--[[
 		local Label = Instance.new("TextLabel")
 		Label.Size = UDim2.fromScale(0.8, 0.8)
 		Label.BackgroundTransparency = 1
 		Label.Text = "X"
 		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-		Label.TextSize = 10
+		Label.TextSize = 1
 		Label.TextStrokeTransparency = 0.75
 		Label.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Label.ZIndex = 2
 		Label.Parent = Close
+		]]
 
 		local Divider = Instance.new("Frame")
 		Divider.Name = "Divider"

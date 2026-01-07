@@ -4541,6 +4541,12 @@ function Bracket.PushNotification(Self, Notification)
 	Notification = Self.Utilities:GetType(Notification, "table", {})
 	Notification.Title = Self.Utilities:GetType(Notification.Title, "string", "Title")
 	Notification.Description = Self.Utilities:GetType(Notification.Description, "string", "Description")
+	local Duration = Notification.Duration
+	if Duration == false then
+		Notification.Duration = nil
+	else
+		Notification.Duration = Self.Utilities:GetType(Notification.Duration, "number", 5)
+	end
 
 	local NotificationInstance = Self.Instances.PushNotification()
 	NotificationInstance.Parent = Self.Screen.PNContainer
@@ -4557,12 +4563,7 @@ function Bracket.PushNotification(Self, Notification)
 
 	if Notification.Duration then
 		task.spawn(function()
-			for Time = Notification.Duration, 1, -1 do
-				NotificationInstance.TitleHolder.Close.Text = Time
-				task.wait(1)
-			end
-			NotificationInstance.TitleHolder.Close.Text = 0
-
+			task.wait(Notification.Duration)
 			NotificationInstance:Destroy()
 			if Notification.Callback then
 				Notification.Callback()

@@ -2302,6 +2302,7 @@ Bracket.Instances = {
 
 		local Label = Instance.new("TextLabel")
 		Label.Size = UDim2.fromScale(1, 1)
+		Label.Position = UDim2.new(0, 0)
 		Label.TextScaled = true
 		Label.TextXAlignment = Enum.TextXAlignment.Center
 		Label.TextYAlignment = Enum.TextYAlignment.Center

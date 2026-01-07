@@ -2270,7 +2270,7 @@ Bracket.Instances = {
 
 		local Close = Instance.new("TextButton")
 		Close.Name = "Close"
-		Close.AnchorPoint = Vector2.new(0, 0)
+		Close.AnchorPoint = Vector2.new(1, 0)
 		Close.Size = UDim2.new(0, 14, 0, 14)
 		Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
 		Close.BackgroundTransparency = 1

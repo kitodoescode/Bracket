@@ -2298,7 +2298,11 @@ Bracket.Instances = {
 		Gradient.Name = "Gradient"
 		Gradient.Rotation = 90
 		Gradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(191, 191, 191))
-		Gradient.Parent = Frame
+		Gradient.Parent = Background
+
+		local Corner = Instance.new("UICorner")
+		Corner.CornerRadius = UDim.new(0, 3)
+		Corner.Parent = Background
 
 		local Label = Instance.new("TextLabel")
 		Label.Size = UDim2.fromScale(1, 1)
@@ -2306,6 +2310,7 @@ Bracket.Instances = {
 		Label.Text = "X"
 		Label.TextColor3 = Color3.fromRGB(255, 255, 255)
 		Label.TextSize = 14
+		Label.TextStrokeTransparency = 0.75
 		Label.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Label.ZIndex = 2
 		Label.Parent = Close

@@ -2273,10 +2273,10 @@ Bracket.Instances = {
 		Close.AnchorPoint = Vector2.new(1, 0)
 		Close.Size = UDim2.new(0, 14, 0, 14)
 		Close.BorderColor3 = Color3.fromRGB(0, 0, 0)
-		Close.BackgroundTransparency = 0
+		Close.BackgroundTransparency = 1
 		Close.Position = UDim2.new(1, 0, 0, 0)
 		Close.BorderSizePixel = 0
-		Close.BackgroundColor3 = Color3.fromRGB(63, 63, 63)
+		Close.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 		Close.AutoButtonColor = false
 		Close.TextStrokeTransparency = 0.75
 		Close.TextSize = 14
@@ -2285,11 +2285,19 @@ Bracket.Instances = {
 		Close.FontFace = Font.fromEnum(Enum.Font.SourceSans)
 		Close.Parent = TitleHolder
 
+		local Frame = Instance.new("Frame")
+		Frame.Name = "Frame"
+		Frame.Size = UDim2.new(0, 10, 0, 10)
+		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame.Position = UDim2.new(0, 0, 0, 2)
+		Frame.BackgroundColor3 = Color3.fromRGB(63, 63, 63)
+		Frame.Parent = Close
+
 		local Gradient = Instance.new("UIGradient")
 		Gradient.Name = "Gradient"
 		Gradient.Rotation = 90
 		Gradient.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255), Color3.fromRGB(191, 191, 191))
-		Gradient.Parent = Close
+		Gradient.Parent = Frame
 
 		local Divider = Instance.new("Frame")
 		Divider.Name = "Divider"
